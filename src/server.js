@@ -21,6 +21,10 @@ register.registerMetric(httpRequestCounter);
 
 app.set('view engine', 'ejs')
 
+app.get('/', (req, res) => {
+    res.status(200).send('FoodTime API');
+});
+
 // Middlewares
 app.use((req, res, next) => {
     res.on('finish', () => {
@@ -31,12 +35,9 @@ app.use((req, res, next) => {
 
 // Rota de métricas para Prometheus
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// API
-app.use('/', require('./controller/controller'));
 
 //Metrics
 app.get('/metrics', async (req, res) => {
